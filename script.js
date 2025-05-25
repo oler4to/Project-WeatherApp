@@ -15,3 +15,8 @@ function getResolvedAdd(address){
   return address.slice(address.indexOf(' ')+1);
 }
 
+function convertToCelcius(temp){
+  return Math.round((temp-32)*(5/9));
+}
+
+
