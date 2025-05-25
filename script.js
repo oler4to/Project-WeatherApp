@@ -19,4 +19,16 @@ function convertToCelcius(temp){
   return Math.round((temp-32)*(5/9));
 }
 
+function currentForecast(data){
+  return {
+    city: data.address,
+    resolvedAddress: getResolvedAdd(data.resolvedAddress),
+    descrip: data.description,
+    currentTemp: convertToCelcius(data.currentConditions.temp),
+    maxTemp: convertToCelcius(data.days[0].tempmax),
+    minTemp: convertToCelcius(data.days[0].tempmin),
+    humidity: convertToCelcius(data.currentConditions.humidity),
+  };
+}
+
 
