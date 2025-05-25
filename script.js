@@ -1,4 +1,5 @@
 
+const ficksburg = JSON.parse(localStorage.getItem('ficksburg'));
 
 
 async function getData(city){
