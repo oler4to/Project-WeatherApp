@@ -10,6 +10,7 @@ async function getData(city){
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=YA3JYGZUNLJTQX73DKKAMD87Q&unitGroup=uk`);
     const data = await response.json();
     const forecast = await currentForecast(data);
+    console.log(data)
     fillDetails(forecast);
  
  
@@ -21,21 +22,27 @@ async function getData(city){
 }
 
 function getPostalAddress(data){
-  return data.resolvedAddress
-          .split((data.address + ","))
-            .join('').trim();
+  if(data.resolvedAddress !== data.address)
+    return data.resolvedAddress
+            .split(",").filter((e) => e !== data.address)
+              .join(',').trim();
+  else return data.address;
 }
 
 function currentForecast(data){
+  
   return {
     city: data.address,
     postalAddress: getPostalAddress(data),
     description: data.description,
+    condition: data.currentConditions.icon,
     currentTemp: data.currentConditions.temp,
-    maxTemp: data.days[0].tempmax,
     minTemp: data.days[0].tempmin,
-    humidity: Math.floor(data.currentConditions.humidity) + '%',
-    wind: Math.floor(data.days[0].windspeed) + 'km/h'
+    maxTemp: data.days[0].tempmax,
+    humidity: Math.round(data.currentConditions.humidity) + '%',
+    wind: Math.round(data.currentConditions.windspeed) + 'km/h',
+    sunrise: data.currentConditions.sunrise,
+    sunset: data.currentConditions.sunset
   };
 }
 
