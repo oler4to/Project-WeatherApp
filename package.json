@@ -1,0 +1,17 @@
+{
+  "name": "project-weatherapp",
+  "version": "1.0.0",
+  "description": "Create a weather app",
+  "main": "script.js",
+  "keywords": [],
+  "author": "oler4to",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch"
+  },
+  "devDependencies": {
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  }
+}
