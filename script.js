@@ -10,7 +10,7 @@ async function getData(city){
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=YA3JYGZUNLJTQX73DKKAMD87Q&unitGroup=uk`);
     const data = await response.json();
     const forecast = await currentForecast(data);
-    console.log(data)
+    console.log(data);
     fillDetails(forecast);
  
  
@@ -71,15 +71,21 @@ const loadingScreen = document.getElementById('loading-screen');
 
 function operateLoadingScreen(status){
   if(!status){
-    loadingScreen.innerHTML = 'Done!';
+    loadingScreen.innerHTML = 'Getting Data <br/>';
     loadingScreen.style.display = 'none';
   } else {
     loadingScreen.style.display = "block";
-    loadingScreen.innerHTML += ".";
+    setInterval(function(){
+      
+    if(!loadingScreen.innerHTML.includes('...')){
+        loadingScreen.innerHTML += '.';
+    } else loadingScreen.innerHTML = 'Getting Data <br/>';
+  } , 200);
+    
   }
 }
 
-getData('Barbados');
+getData('Port Alfred');
 
 const details = document.getElementById('details');
 
@@ -95,6 +101,6 @@ function fillDetails(data){
     } else if (Object.keys(data).includes(`${fieldClass}Temp`)){
       field.innerHTML = data[`${fieldClass}Temp`] + '°C';
     }
-  })
+  });
 }
 
