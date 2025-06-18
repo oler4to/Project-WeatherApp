@@ -1,0 +1,41 @@
+body {
+  background-color: skyblue;
+}
+
+#forecast {
+  padding: 5px;
+  
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#forecast #details {
+  padding: 5px;
+  
+  display: flex;
+  flex-direction: column;
+  
+  gap: 4px;
+  
+  border-radius: 5px;
+}
+
+#details > span {
+  padding: 5px;
+  
+  border-radius: 5px;
+  background-color: #ffffff44;
+  
+}
+
+#loading-screen {
+  position: fixed;
+  top: 45%;
+  left: 35%;
+  
+  display: flexbox;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+}
