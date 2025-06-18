@@ -1,3 +1,5 @@
+import './styles.css';
+
 
 const ficksburg = JSON.parse(localStorage.getItem('ficksburg'));
 
@@ -31,19 +33,37 @@ function getPostalAddress(data){
 
 function currentForecast(data){
   
-  return {
+  let forecast = {
     city: data.address,
     postalAddress: getPostalAddress(data),
     description: data.description,
     condition: data.currentConditions.icon,
-    currentTemp: data.currentConditions.temp,
-    minTemp: data.days[0].tempmin,
-    maxTemp: data.days[0].tempmax,
+    temps: {
+      current: data.currentConditions.temp,
+      min: data.days[0].tempmin,
+      max: data.days[0].tempmax,
+    },
+    times: {
+      current: data.currentConditions.datetime,
+      sunrise: data.currentConditions.sunrise,
+      sunset: data.currentConditions.sunset
+    },
     humidity: Math.round(data.currentConditions.humidity) + '%',
     wind: Math.round(data.currentConditions.windspeed) + 'km/h',
-    sunrise: data.currentConditions.sunrise,
-    sunset: data.currentConditions.sunset
+    
   };
+  
+  let round = (() => {
+      for (let temp in forecast.temps){
+        forecast.temps[temp] = Math.round(forecast.temps[temp]) + '°C';
+      }
+      
+      for (let time in forecast.times){
+        forecast.times[time] = forecast.times[time].slice(0, -3);
+      }
+    })();
+  
+  return forecast;
 }
 
 
@@ -85,14 +105,14 @@ function operateLoadingScreen(status){
   }
 }
 
-getData('Cambridge');
+getData('Ficksburg');
 
-const detailFields = document.querySelectorAll('#details span');
+const detailFields = document.querySelectorAll('#details > span');
 
 function fillDetails(data){
   detailFields.forEach((field) => {
     
-    let fieldClass = field.classList[0];
+    let fieldClass = field.className;
     
     if(Object.keys(data).includes(fieldClass)){
       
@@ -103,11 +123,19 @@ function fillDetails(data){
               .firstElementChild
                 .src = icon.default;
           });
-      } else field.innerHTML = data[fieldClass];
-      
-    } else if (Object.keys(data).includes(`${fieldClass}Temp`)){
-      field.innerHTML = data[`${fieldClass}Temp`] + '°C';
-    }
+          
+      } else if (fieldClass == 'temps' || fieldClass == 'times'){
+        let fields = field.querySelectorAll('span');
+        
+        fields.forEach((child) => {
+          let childClass = child.className;
+          
+          if(Object.keys(data[fieldClass]).includes(childClass)){
+            child.innerHTML = data[fieldClass][childClass];
+          }
+          
+        });
+          
+      } else field.innerHTML = data[fieldClass];}
   });
 }
-
