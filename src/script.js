@@ -34,10 +34,12 @@ function getPostalAddress(data){
 function currentForecast(data){
   
   let forecast = {
-    city: data.address,
-    postalAddress: getPostalAddress(data),
-    description: data.description,
     condition: data.currentConditions.icon,
+    address: {
+      city: data.address,
+      postalAddress: getPostalAddress(data),
+    },
+    description: data.description,
     temps: {
       current: data.currentConditions.temp,
       min: data.days[0].tempmin,
@@ -124,7 +126,7 @@ function fillDetails(data){
                 .src = icon.default;
           });
           
-      } else if (fieldClass == 'temps' || fieldClass == 'times'){
+      } else if (fieldClass == 'temps' || fieldClass == 'times' || fieldClass == 'address' ){
         let fields = field.querySelectorAll('span');
         
         fields.forEach((child) => {
