@@ -34,7 +34,11 @@ function getPostalAddress(data){
 function currentForecast(data){
   
   let forecast = {
-    condition: data.currentConditions.icon,
+    conditions: { 
+      icon: data.currentConditions.icon,
+      humidity: Math.round(data.currentConditions.humidity) + '%',
+      wind: Math.round(data.currentConditions.windspeed) + 'km/h',
+    },
     address: {
       city: data.address,
       postalAddress: getPostalAddress(data),
@@ -50,8 +54,6 @@ function currentForecast(data){
       sunrise: data.currentConditions.sunrise,
       sunset: data.currentConditions.sunset
     },
-    humidity: Math.round(data.currentConditions.humidity) + '%',
-    wind: Math.round(data.currentConditions.windspeed) + 'km/h',
     
   };
   
@@ -116,28 +118,25 @@ function fillDetails(data){
     
     let fieldClass = field.className;
     
-    if(Object.keys(data).includes(fieldClass)){
-      
-      if(fieldClass == 'condition'){
-        import (`./icons/${data.condition}.svg`)
+    if(Object.keys(data).includes(fieldClass) && fieldClass !== 'description'){
+        
+        import (`./icons/${data.conditions.icon}.svg`)
           .then((icon) => {
             field
               .firstElementChild
                 .src = icon.default;
           });
-          
-      } else if (fieldClass == 'temps' || fieldClass == 'times' || fieldClass == 'address' ){
-        let fields = field.querySelectorAll('span');
         
-        fields.forEach((child) => {
-          let childClass = child.className;
-          
-          if(Object.keys(data[fieldClass]).includes(childClass)){
-            child.innerHTML = data[fieldClass][childClass];
-          }
+        field.querySelectorAll('span')
+          .forEach((child) => {
+            let childClass = child.className;
+            
+            if(Object.keys(data[fieldClass]).includes(childClass)){
+              child.innerHTML = data[fieldClass][childClass];
+            }
           
         });
           
-      } else field.innerHTML = data[fieldClass];}
+      } else field.innerHTML = data[fieldClass];
   });
 }
