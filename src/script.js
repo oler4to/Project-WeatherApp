@@ -153,6 +153,8 @@ function changeBackground(data){
   }
 }
 
+const detailFields = document.querySelectorAll('#details > span');
+
 const forecast = document.getElementById('forecast');
 
 function fillDetails(data){
