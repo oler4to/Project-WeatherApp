@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>degrees° | Weather App</title>
+    
+  </head>
+  <body>
+    
+    <div id="loading-screen">
+      <span>Getting Data</span>
+      <br />
+      </div>
+      
+      <div id="welcome">
+        <span>Welcome.</span>
+      </div>
+      
+      <header id="header">
+        <span id="name">degrees°</span>
+        <span id="search-bar">
+          <input type="search" name="search-input" class="search-input" placeholder="Search a town/city or area"/>
+          <button class="search-button" type="submit"><img class="search-icon" src="" /></button>
+        </span>
+      </header>
+      
+      <div id="forecast">
+        <div id="image">
+          
+        </div>
+        <div id="details">
+          <span class="conditions">
+            <img id="icon" src="" alt="" />
+            
+            <span class="humidity">
+              <p class="label">HUMIDITY:</p>
+              <p class="value"></p>
+            </span>
+            
+            <span class="wind">
+              <p class="label">WIND:</p>
+              <p class="value"></p>
+            </span>
+            
+          </span>
+          
+          <span class="address"> 
+            <span class="city">
+              <p class="value"></p>
+            </span>
+            <span class="postalAddress">
+              <p class="value"></p>
+            </span>
+          </span>
+          
+          
+          <span class="description"> </span>
+          
+          <span class="times">
+            <span class="current">
+              <p class="value"></p>
+            </span>
+            
+            <span class="sunrise">
+              <p class="label">SUNRISE</p>
+              <p class="value"></p>
+            </span>
+            
+            <span class="sunset">
+              <p class="label">SUNSET</p>
+              <p class="value"></p>
+            </span>
+          </span>
+          
+          <span class="temps">
+            <span class="current">
+              <p class="label">CURRENT</p>
+              <p class="value"></p>
+            </span>
+            
+            <span class="min">
+              <p class="label">MIN</p>
+              <p class="value"></p>
+            </span>
+            
+            <span class="max">
+              <p class="label">MAX</p>
+              <p class="value"></p>
+            </span>
+          </span>
+
+          
+        </div>
+      </div>
+    
+    <script src="main.js" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>
